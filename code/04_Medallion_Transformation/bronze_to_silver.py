@@ -4,8 +4,8 @@ from pyspark.sql.functions import (
 )
 
 catalog = "smart_claims_dev"
-bronze_schema = "01_bronze"
-silver_schema = "02_silver"
+bronze_schema = "bronze"
+silver_schema = "silver"
 
 # --- CLEAN TELEMATICS ---
 @dlt.table(

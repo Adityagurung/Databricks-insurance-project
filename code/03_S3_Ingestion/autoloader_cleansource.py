@@ -1,6 +1,6 @@
 # Define paths
 landing_catalog = "smart_claims_dev"
-landing_schema = "00_landing"
+landing_schema = "landing"
 
 base_path = f"/Volumes/{landing_catalog}/{landing_schema}/claims"
 source_path = f"{base_path}/images"
@@ -18,7 +18,7 @@ claim_images_df = (
     spark.readStream
     .format("cloudFiles")
     .option("cloudFiles.format", "binaryFile")
-    .option("cloudFiles.schemaLocation", f"'{metadata_path}/_schema")
+    .option("cloudFiles.schemaLocation", f"{metadata_path}/_schema")
     .options(**archive_configs)
     .load(source_path)
 )
@@ -27,5 +27,5 @@ claim_images_df = (
     claim_images_df.writeStream
     .option("checkpointLocation", f"{metadata_path}/_checkpoint")
     .trigger(availableNow=True)
-    .toTable("smart_claims_dev.01_bronze.claim_images")
+    .toTable("smart_claims_dev.bronze.claim_images")
 )
